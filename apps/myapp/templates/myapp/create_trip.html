@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .registration,
+    .login {
+      display: inline-block;
+      width: 40%;
+      vertical-align: top;
+      margin-left: 5%;
+    }
+  
+    .messages {
+      color: tomato;
+    }
+  
+    button {
+      margin: 15px;
+    }
+  
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <form action='/create_trip_process' method="POST" class="col s14 m6 card">
+      <h2>Hello {{user_name}}! Create a trip!</h2>
+      {% csrf_token %}
+
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" class="validate" name='destination'>
+          <label for="last_name">Destination</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 m12">
+          <input id="dtp" type="text" class="datepicker" name='start_date'>
+          <label for="dtp">Start Date</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 m12">
+          <input id="dtp" type="text" class="datepicker" name='end_date'>
+          <label for="dtp">End Date</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea" name='plan'></textarea>
+          <label for="textarea1">Plan</label>
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Sumbit
+        <i class="material-icons right">send</i>
+      </button>
+      <a href='/create_trip_cancel' class="waves-effect waves-light btn">Cancel</a>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+      M.updateTextFields();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .registration,
+    .login {
+      display: inline-block;
+      width: 40%;
+      vertical-align: top;
+      margin-left: 5%;
+    }
+  
+    .messages {
+      color: tomato;
+    }
+  
+    button {
+      margin: 15px;
+    }
+  
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- *************************************Registartion************************************** -->
+  
+  <h1>Welcome! Let's travel!</h1>
+
+  <div class='registration'>
+  
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  
+    <div class="row">
+      <form action='/registration_process' method="POST" class="col s14 m12 card">
+        <h2>Registration</h2>
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="last_name" type="text" class="validate" name='first_name'>
+            <label for="last_name">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="last_name" type="text" class="validate" name='last_name'>
+            <label for="last_name">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name='email'>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name='password'>
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name='confirm_password'>
+            <label for="password">Confirm Password</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Register
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- *************************************Login************************************** -->
+  <div class='login'>
+    <div class="row">
+      <form class="col s14 m12 card" action='/login_process' method="POST">
+        <h2>Login</h2>
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name='email'>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name='password'>
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Log In
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+      M.updateTextFields();
+    });
+  </script>
+</body>
+</html>
